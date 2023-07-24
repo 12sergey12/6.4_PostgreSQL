@@ -71,6 +71,27 @@
 
 Можно ли было изначально исключить ручное разбиение при проектировании таблицы orders?
 
+test_database=# CREATE TABLE orders_more_499_price (CHECK (price > 499)) INHERITS (orders);
+
+CREATE TABLE
+
+test_database=# INSERT INTO orders_more_499_price SELECT * FROM orders WHERE price > 499;
+
+INSERT 0 3
+
+test_database=# CREATE TABLE orders_less_499_price (CHECK (price <= 499)) INHERITS (orders);
+
+CREATE TABLE
+
+test_database=# INSERT INTO orders_LESS_499_price SELECT * FROM orders WHERE price <= 499;
+
+INSERT 0 5
+
+test_database=# DELETE FROM ONLY orders;
+
+DELETE 8
+
+
 ![monitoring](https://github.com/12sergey12/6.4_PostgreSQL/blob/main/images/postgres_3(6.4).png)
 
 При начальном проектировании таблиц можно сделать ее секционированной, тогда не нужно переименовывать исходную таблицу и переносить данные в новую.
